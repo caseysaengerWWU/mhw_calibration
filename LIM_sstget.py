@@ -9,9 +9,10 @@ import pandas as pd
 import numpy as np
 import netCDF4 as nc
 
-site=input("Enter a unique name for your site (no spaces)")
+site=input("Enter a unique name for your site (no spaces): ")
 lat=float(input("Enter the latitude of your site in decimal degrees (e.g. 44.88): "))
 lon=float(input("Enter the longitude of your site in decimal degrees (e.g. -130.60): "))
+path=input("Enter the path to a folder with the LIM ensemble data files. Be sure to end with a slash: ")
 
 #function to get closest grid cell assuming flat earth
 def flat_fast(latvar,lonvar,lat0,lon0):
@@ -32,7 +33,7 @@ LIM_ssta = np.zeros((840,2000))                     # initialize
 
 for i in range(0,len(end)):
     print('fetching LIM sst anomalies...')
-    dat = nc.Dataset('/Volumes/lima/NPAC_LIM/northPacific_ens'+str(start[i])+'to'+str(end[i])+'.nc')
+    dat = nc.Dataset(path+'northPacific_ens'+str(start[i])+'to'+str(end[i])+'.nc')
     LIM_lat = dat.variables['lat'][:]
     LIM_lon = dat.variables['lon'][:]
     iy,ix = flat_fast(LIM_lat, LIM_lon, lat, lon)

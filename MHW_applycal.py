@@ -14,7 +14,7 @@ filename = input("What is the name of calibration file? (include .pkl extension)
 with open(filename,"rb") as f:
     pls_model = pickle.load(f)
 
-filename = input("What is the name of you proxy file?: ")
+filename = input("What is the name of you proxy file? (include .csv extension): ")
 proxy = pd.read_csv(filename)
 
 #plot proxy data

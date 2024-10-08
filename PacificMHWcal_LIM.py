@@ -300,7 +300,7 @@ for i in range(0,LIM_mhwmetrics_df.shape[1]):
     rmse_df = pd.DataFrame(rmse, columns = range(1,11))
     #user defines the lowest mse from iterations above
     ax = sns.stripplot(rmse_df,color='k',alpha = 0.3)
-    ax.set(xlabel='number of componets', ylabel='RMSE', title=LIM_mhwmetrics_df.columns[i])
+    ax.set(xlabel='number of components', ylabel='RMSE', title=LIM_mhwmetrics_df.columns[i])
     sns.pointplot(rmse_df)
     tmp=rmse_df.T.pct_change().mean(axis=1)
     plt.scatter((tmp.loc[tmp>-0.01].index[0]-2),rmse_df.values.min(),marker = '^',color='gold',s=100)
@@ -333,7 +333,7 @@ for i in range(0,LIM_mhwmetrics_df.shape[1]):
     #entire dataset
     usampl = input("Evaluate undersampling (suggested only for promising relationships)? (y/n): ")
     if usampl == 'y':
-        sedyrs = int(input("Each of your samples represent about how many years (can be calculated by sedimentation rate)?: "))
+        sedyrs = int(float(input("Each of your samples represent about how many years (can be calculated by sedimentation rate)?: ")))
         #nforams = int(input("About how many forams will you measure in each sample?: "))
         nforams = np.array([50,100,200,400,800])
         if sedyrs > 500 and sedyrs <2000:
@@ -378,7 +378,7 @@ for i in range(0,LIM_mhwmetrics_df.shape[1]):
         n = int(len(y)*0.1)
         top10 = LIM_dstats_df.iloc[sorted(range(len(y)), key=lambda i: y[i], reverse=True)[:n],:]
         bot10 = LIM_dstats_df.iloc[sorted(range(len(y)), key=lambda i: y[i])[:n]] 
-        diff = (np.mean(top10)-np.mean(bot10))/np.mean(top10)*100
+        diff = (np.mean(top10,0)-np.mean(bot10,0))/np.mean(top10,0)*100
         plt.plot(diff,'ko')
         plt.axhline(0,color='k')
         plt.xticks(rotation=90)
